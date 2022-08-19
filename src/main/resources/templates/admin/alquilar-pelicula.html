@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{master.html}">
+<head>
+<meta charset="UTF-8">
+<title>Alquiler de peliculas | CineTrailer</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<form th:action="@{/alquiler/{id}(id=${pelicula.id})}"
+			th:object="${alquiler}" method="post">
+			<div class="card card-success">
+				<div class="card-header">
+					<h3 class="card-title pt-2 text-success">Registro de alquiler</h3>
+				</div>
+				<!-- /.card-header -->
+				<!-- form start -->
+
+				<div class="card-body">
+					<div class="form-group">
+						<input type="hidden" class="form-control" id="id" name="id"
+							th:field="${pelicula.id}">
+					</div>
+					<div class="form-group py-2">
+						<label for="nombre" class="mb-1"><strong>Titulo</strong></label> <input
+							type="text" class="form-control" id="titulo" name="titulo"
+							th:field="${pelicula.titulo}">
+					</div>
+					<div class="form-group d-flex py-2">
+						<img
+							th:src="@{/assets/{filename}(filename=${pelicula.rutaPortada})}"
+							alt="" class="img-thumbnail w-25">
+						<div class="flex-fill px-2">
+							<h1 th:text="${pelicula.titulo}"></h1>
+							<label for="Sinopsis">Sinopsis</label>
+							<p class="text-break" th:text="${pelicula.sinopsis}"></p>
+							<div>
+								<span class="badge rounded-pill bg-light text-dark me-1"
+									th:each="genero : ${pelicula.generos}"
+									th:text="${genero.titulo}"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="precio" class="mt-2"><strong>Precio
+								de alquiler</strong></label> <input type="text" class="form-control" id="precio"
+							name="precio" th:field="${pelicula.pelCosto}">
+					</div>
+					<div class="row">
+						<div class="form-group col-6">
+							<label for="fecha de alquiler" class="mt-2"><strong>Fecha
+									de alquiler</strong></label> <input type="date" class="form-control"
+								id="fechaAlquiler" name="fechaAlquiler"
+								th:field="*{alqFechaDesde}">
+						</div>
+						<div class="form-group col-6">
+							<label for="fecha de entrega" class="mt-2"><strong>Fecha
+									de entrega</strong></label> <input type="date" class="form-control"
+								id="fechaEntrega" name="fechaEntrega"
+								th:field="*{alqFechaEntrega}">
+						</div>
+					</div>
+				</div>
+				<!-- /.card-body -->
+
+				<div class="card-footer d-flex justify-content-end ">
+					<button class="btn btn-success mx-2" id="btn_save_form"
+						type="submit">Alquilar</button>
+					<a class="btn btn-danger" href="/peliculas">Cancelar</a>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

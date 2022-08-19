@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{master.html}">
+<head>
+<meta charset="UTF-8">
+<title>Estadistica de peliculas alquiladas| CineTrailer</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<h2 class="text-success text-center">Estadisticas de las peliculas</h2>
+		<div class="py-4">
+			<h3 class="py-3">Peliculas alquiladas</h3>
+			<canvas id="pizarra"></canvas>
+		</div>
+
+		<div class="py-4">
+			<h3 class="py-3">Ganancias generadas por pelicula
+				alquilada</h3>
+			<canvas id="pizarra2"></canvas>
+		</div>
+
+	</div>
+
+
+	<div layout:fragment="scripts">
+		<script>
+		
+			//Graficar cantidad de alquileres
+			jQuery.ajax({
+				url : '/api/peliculas/alquiladas',
+				type : 'GET',
+				success : function(data, textStatus, xhr) {
+					
+					let etiquetas1= new Array()
+					let valores1= new Array()
+					
+					data.map((element)=>{
+						etiquetas1.push(element.titulo)
+						valores1.push(element.totalAlquileres)
+					})
+					
+					graficar(etiquetas1,valores1)
+					
+				},
+				error : function(xhr, textStatus, errorThrown) {
+					alert("Toda mal")
+				}
+			});
+			
+			const graficar = (etiquetas,valores) => {
+				const g = $('#pizarra')
+				
+				const myChart = new Chart(g, {
+					type : 'bar',
+					data : {
+						labels : etiquetas,
+						datasets : [ {
+							label : '#Numero de veces alquilada',
+							data : valores,
+							backgroundColor:"#04BAAE"
+						} ]
+					}
+				})
+			}
+			
+			
+			//Graficar cantidad de alquileres
+			jQuery.ajax({
+				url : '/api/peliculas/alquiladas',
+				type : 'GET',
+				success : function(data, textStatus, xhr) {
+					
+					let etiquetas2 = new Array()
+					let valores2 = new Array()
+					
+					data.map((element)=>{
+						etiquetas2.push(element.titulo)
+						valores2.push(element.monto)
+					})
+					
+					graficar2(etiquetas2,valores2)
+					
+				},
+				error : function(xhr, textStatus, errorThrown) {
+					alert("Toda mal")
+				}
+			});
+			
+			const graficar2 = (etiquetas,valores) => {
+				const g = $('#pizarra2')
+				
+				const myChart = new Chart(g, {
+					type : 'bar',
+					data : {
+						labels : etiquetas,
+						datasets : [ {
+							label : 'Ganancia generada',
+							data : valores,
+							backgroundColor:"#A9E2F3"
+						} ]
+					}
+				})
+			}
+			
+		</script>
+
+	</div>
+</body>
+</html>

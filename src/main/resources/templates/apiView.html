@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{master.html}">
+<head>
+<meta charset="UTF-8">
+<title>Api | CineTrailer</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<h1 class="text-success">Listado de APIS</h1>
+			<div class="p-2">
+				<p class="h6">API para lista las peliculas</p>
+				<a href="/api/peliculas">/api/peliculas</a>
+			</div>
+			<div class="p-2">
+				<p class="h6">API para listar las peliculas alquiladas</p>
+				<a href="/api/peliculas/alquiladas">/api/peliculas/alquiladas</a>
+			</div>
+			<div class="p-2">
+				<p class="h6">API para ver detalle de una pelicula</p>
+				<a href="/api/peliculas/12">/api/peliculas/12</a>
+			</div>
+			<div class="p-2">
+				<p class="h6">API para listar peliculas por genero</p>
+				<a href="/api/peliculas/?genero=Fantasia">/api/peliculas?genero=Fantasia</a>
+			</div>
+		</div>
+</body>
+</html>

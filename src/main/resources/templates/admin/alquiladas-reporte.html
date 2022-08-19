@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org" layout:decorate="~{master.html}">
+<head>
+<meta charset="UTF-8">
+<title>Reporte de peliculas alquiladas| CineTrailer</title>
+</head>
+<body>
+
+	<div layout:fragment="content">
+		<h2 class="text-success">Reporte de las peliculas alquiladas</h2>
+		<div class="d-flex justify-content-end py-4">
+			<a class="btn btn-success" href="/alquiler/pdf">Generar PDF</a>
+		</div>
+		<div class="bg-success p-2 my-2" style="color: #fff"
+			th:if="${msgInfo!=null}" th:text="${msgInfo}"></div>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Portada</th>
+					<th>Titulo</th>
+					<th>Numero de veces alquilada</th>
+					<th>Total recaudado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="alquiler : ${alquilerPeliculas}">
+					<td style="width: 110px;"><img
+						th:src="@{/assets/{filename}(filename=${alquiler.rutaPortada})}"
+						alt="" class="img-thumbnail w-100">
+					</td>
+					<td th:text="${alquiler.titulo}" class="fw-bold"></td>
+					<td th:text="${alquiler.totalAlquileres}"></td>
+					<td th:text="'$' + ${alquiler.monto}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div layout:fragment="scripts"></div>
+</body>
+</html>
